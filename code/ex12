@@ -1,0 +1,343 @@
+<?php
+
+// XML file name
+$xmlFile = "books.xml";
+
+$message = "";
+
+// Check whether XML file exists
+if (!file_exists($xmlFile)) {
+
+    $xml = new SimpleXMLElement(
+        '<?xml version="1.0" encoding="UTF-8"?><library></library>'
+    );
+
+    $xml->asXML($xmlFile);
+}
+
+
+// --------------------------------------------------
+// ADD BOOK
+// --------------------------------------------------
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Get values from user
+    $title = trim($_POST["title"]);
+    $author = trim($_POST["author"]);
+    $year = trim($_POST["year"]);
+    $price = trim($_POST["price"]);
+
+
+    // Check empty fields
+    if ($title == "" || $author == "" || $year == "" || $price == "") {
+
+        $message = "Please enter all book details.";
+
+    } else {
+
+        // Load XML file
+        $xml = simplexml_load_file($xmlFile);
+
+        if ($xml === false) {
+
+            $message = "Error: Cannot read books.xml";
+
+        } else {
+
+            // Create new book
+            $book = $xml->addChild("book");
+
+            // Add book details
+            $book->addChild("title", $title);
+            $book->addChild("author", $author);
+            $book->addChild("year", $year);
+            $book->addChild("price", $price);
+
+            // Save data into XML file
+            if ($xml->asXML($xmlFile)) {
+
+                $message = "Book added successfully!";
+
+            } else {
+
+                $message = "Error: Cannot save book data.";
+            }
+        }
+    }
+}
+
+?>
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Library Management System</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            width: 800px;
+            margin: auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #999999;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333333;
+        }
+
+        h2 {
+            color: #444444;
+            margin-top: 25px;
+        }
+
+        .form-box {
+            background-color: #eeeeee;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 95%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #999999;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: 1px solid #777777;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid #777777;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1>Library Management System</h1>
+
+
+    <!-- BOOK INPUT FORM -->
+
+    <h2>Enter Book Details</h2>
+
+    <div class="form-box">
+
+        <form method="post" action="">
+
+            <label>Book Title:</label>
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Enter book title"
+                required
+            >
+
+
+            <label>Author:</label>
+
+            <input
+                type="text"
+                name="author"
+                placeholder="Enter author name"
+                required
+            >
+
+
+            <label>Year:</label>
+
+            <input
+                type="number"
+                name="year"
+                placeholder="Enter publication year"
+                required
+            >
+
+
+            <label>Price:</label>
+
+            <input
+                type="number"
+                name="price"
+                placeholder="Enter book price"
+                step="0.01"
+                required
+            >
+
+
+            <br>
+
+            <input
+                type="submit"
+                value="Add Book"
+            >
+
+        </form>
+
+    </div>
+
+
+    <!-- MESSAGE -->
+
+    <?php
+
+    if ($message != "") {
+
+        if ($message == "Book added successfully!") {
+
+            echo "<p class='success'>$message</p>";
+
+        } else {
+
+            echo "<p class='error'>$message</p>";
+        }
+    }
+
+    ?>
+
+
+    <!-- DISPLAY BOOKS -->
+
+    <h2>Library Book Details</h2>
+
+    <?php
+
+    // Load XML file
+    $xml = simplexml_load_file($xmlFile);
+
+
+    if ($xml === false) {
+
+        echo "<p class='error'>Error: Cannot load books.xml</p>";
+
+    } else {
+
+        echo "<table>";
+
+        echo "<tr>";
+        echo "<th>Title</th>";
+        echo "<th>Author</th>";
+        echo "<th>Year</th>";
+        echo "<th>Price</th>";
+        echo "</tr>";
+
+
+        // Check whether books are available
+        if (count($xml->book) == 0) {
+
+            echo "<tr>";
+            echo "<td colspan='4'>No books available</td>";
+            echo "</tr>";
+
+        } else {
+
+            // Display each book
+            foreach ($xml->book as $book) {
+
+                echo "<tr>";
+
+                echo "<td>";
+                echo htmlspecialchars($book->title);
+                echo "</td>";
+
+                echo "<td>";
+                echo htmlspecialchars($book->author);
+                echo "</td>";
+
+                echo "<td>";
+                echo htmlspecialchars($book->year);
+                echo "</td>";
+
+                echo "<td>";
+                echo "$" . htmlspecialchars($book->price);
+                echo "</td>";
+
+                echo "</tr>";
+            }
+        }
+
+        echo "</table>";
+    }
+
+    ?>
+
+</div>
+
+</body>
+
+</html>
