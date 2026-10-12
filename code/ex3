@@ -1,0 +1,149 @@
+<html>
+<head>
+    <title>Online Shopping System</title>
+
+    <style>
+     
+        body {
+            font-family: Arial, sans-serif;
+            background-color: violet;
+            margin: 0;   o
+            padding: 0;
+        }
+
+     
+        header {
+            background-color: pink;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+       
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 8px gray;
+        }
+
+       
+        h2 {
+            color: darkblue;
+            border-bottom: 2px solid gray;
+            padding-bottom: 5px;
+        }
+
+       
+        .welcome {
+            text-align: center;
+            color: green;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+       
+        #location {
+            color: red;
+            font-weight: bold;
+        }
+
+       
+        button {
+            background-color: royalblue;
+            color: yellow;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+       
+        button:hover {
+            background-color: darkgreen;
+        }
+
+       
+        a {
+            text-decoration: none;
+            color: pink;
+            font-weight: bold;
+        }
+
+       
+        a:hover {
+            color: red;
+        }
+
+       
+        footer {
+            background-color: pink;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        img, video, audio {
+            display: block;
+            margin: 10px auto;
+        }
+        img {
+        float: center;
+        margin: 10px;
+    }
+    p {
+        text-align: justify;
+    }
+       
+    </style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>Online Shopping System</h1>
+</header>
+
+<div class="container">
+
+    <p class="welcome">Welcome to Online Shopping</p>
+
+    <h2>Product Image</h2>
+    <img src="image.png" alt="Online Electronic" width="300">
+
+    <h2>Product Audio</h2>
+    <audio controls>
+        <source src="audio.wav" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+
+    <h2>Store Location</h2>
+    <button onclick="getLocation()">Find My Location</button>
+    <p id="location">Location will be displayed here.</p>
+
+    <h2>Product Video</h2>
+    <video width="320" height="240" controls>
+        <source src="videoss.mp4" type="video/mp4">
+    </video>
+
+    <h2>Shopping Link</h2>
+    <img src="linkimg.png" width="200" height="200" alt="Shopping">
+    <br>
+    <a href="https://www.flipkart.com/new-elec-clp-march-at-store" target="_blank">
+        Click Here to Visit Flipkart
+    </a>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 Online Shopping System</p>
+</footer>
+
+
+
+</body>
+</html>
