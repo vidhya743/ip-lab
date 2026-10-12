@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ticket Booking System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        .radio-group {
+            margin-top: 10px;
+        }
+
+        .radio-group input {
+            width: auto;
+        }
+
+        .radio-group label {
+            display: inline;
+            margin-right: 15px;
+            font-weight: normal;
+        }
+
+        input[type="submit"] {
+            background: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 25px;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Ticket Booking System</h1>
+
+    <form action="TicketServlet" method="post">
+
+        <label>Name:</label>
+        <input type="text" name="userName" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Phone Number:</label>
+        <input type="text" name="phone"
+               pattern="[0-9]{10}"
+               title="Enter 10 digit phone number"
+               required>
+
+        <label>Event Name:</label>
+        <select name="eventName" required>
+            <option value="">-- Select Event --</option>
+            <option value="Tech Fest 2026">Tech Fest 2026</option>
+            <option value="Music Fest 2026">Music Fest 2026</option>
+            <option value="Cultural Fest 2026">Cultural Fest 2026</option>
+            <option value="Sports Meet 2026">Sports Meet 2026</option>
+        </select>
+
+        <label>Event Date:</label>
+        <input type="date" name="eventDate" required>
+
+        <label>Ticket Type:</label>
+        <select name="ticketType" required>
+            <option value="">-- Select Ticket Type --</option>
+            <option value="Regular">Regular - Rs. 200</option>
+            <option value="Student">Student - Rs. 250</option>
+            <option value="VIP">VIP - Rs. 500</option>
+        </select>
+
+        <label>Number of Tickets:</label>
+        <input type="number" name="numTickets"
+               min="1" max="10" required>
+
+        <label>Seat Preference:</label>
+        <select name="seatPreference" required>
+            <option value="">-- Select Seat --</option>
+            <option value="Front">Front</option>
+            <option value="Middle">Middle</option>
+            <option value="Back">Back</option>
+        </select>
+
+        <label>Payment Method:</label>
+
+        <div class="radio-group">
+            <label>
+                <input type="radio" name="paymentMethod" value="UPI" required>
+                UPI
+            </label>
+
+            <label>
+                <input type="radio" name="paymentMethod" value="Card">
+                Card
+            </label>
+
+            <label>
+                <input type="radio" name="paymentMethod" value="Cash">
+                Cash
+            </label>
+        </div>
+
+        <input type="submit" value="BOOK TICKET">
+
+    </form>
+
+</div>
+
+</body>
+</html>
