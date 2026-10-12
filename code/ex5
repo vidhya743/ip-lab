@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Job Portal Registration</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#6a11cb,#2575fc,#00c6ff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:450px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+h2{
+    text-align:center;
+    color:#1e3c72;
+    margin-bottom:20px;
+}
+
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:12px;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=number],
+input[type=file],
+select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+}
+
+input:focus,
+select:focus{
+    border:2px solid #2575fc;
+    outline:none;
+}
+
+.gender{
+    margin-top:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:20px;
+    border:none;
+    border-radius:8px;
+    background:linear-gradient(to right,#2575fc,#00c6ff);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:linear-gradient(to right,#00c6ff,#2575fc);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>💼 Job Portal Registration</h2>
+
+<form onsubmit="return validateForm()">
+
+<label>Full Name</label>
+<input type="text" id="name">
+
+<label>Email</label>
+<input type="email" id="email">
+
+<label>Mobile Number</label>
+<input type="text" id="mobile">
+
+<label>Password</label>
+<input type="password" id="password">
+
+<label>Confirm Password</label>
+<input type="password" id="confirmPassword">
+
+<label>Age</label>
+<input type="number" id="age">
+
+<label>Gender</label>
+
+<div class="gender">
+<input type="radio" name="gender"> Male
+<input type="radio" name="gender"> Female
+</div>
+
+<label>Qualification</label>
+
+<select id="qualification">
+<option value="">--Select--</option>
+<option>B.E</option>
+<option>B.Tech</option>
+<option>B.Sc</option>
+<option>M.E</option>
+<option>M.Tech</option>
+<option>MCA</option>
+</select>
+
+<label>Upload Resume</label>
+
+<input type="file" id="resume" accept=".pdf,.doc,.docx">
+
+<br><br>
+
+<input type="checkbox" id="terms">
+I agree to Terms & Conditions
+
+<button type="submit">Register</button>
+
+</form>
+
+</div>
+
+<script>
+
+function validateForm(){
+
+var name=document.getElementById("name").value.trim();
+
+if(name==""){
+alert("Enter Full Name");
+return false;
+}
+
+if(!/^[A-Za-z ]+$/.test(name)){
+alert("Name should contain only letters");
+return false;
+}
+
+var email=document.getElementById("email").value;
+
+if(!/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email)){
+alert("Enter Valid Email");
+return false;
+}
+
+var mobile=document.getElementById("mobile").value;
+
+if(!/^[0-9]{10}$/.test(mobile)){
+alert("Enter 10 Digit Mobile Number");
+return false;
+}
+
+var pass=document.getElementById("password").value;
+
+if(pass.length<8){
+alert("Password must contain minimum 8 characters");
+return false;
+}
+
+var cpass=document.getElementById("confirmPassword").value;
+
+if(pass!=cpass){
+alert("Passwords do not match");
+return false;
+}
+
+var age=document.getElementById("age").value;
+
+if(age<18){
+alert("Age must be 18 or above");
+return false;
+}
+
+var gender=document.getElementsByName("gender");
+var checked=false;
+
+for(var i=0;i<gender.length;i++){
+if(gender[i].checked){
+checked=true;
+}
+}
+
+if(!checked){
+alert("Select Gender");
+return false;
+}
+
+if(document.getElementById("qualification").value==""){
+alert("Select Qualification");
+return false;
+}
+
+var resume=document.getElementById("resume");
+
+if(resume.files.length==0){
+alert("Please Upload Resume");
+return false;
+}
+
+var filename=resume.value.toLowerCase();
+
+if(!(filename.endsWith(".pdf") || filename.endsWith(".doc") || filename.endsWith(".docx"))){
+alert("Upload PDF, DOC or DOCX only");
+return false;
+}
+
+if(!document.getElementById("terms").checked){
+alert("Accept Terms & Conditions");
+return false;
+}
+
+alert("Registration Successful");
+
+return true;
+
+}
+
+</script>
+
+</body>
+</html>
