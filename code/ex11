@@ -1,0 +1,54 @@
+<?php
+
+$conn = new mysqli("localhost", "root", "", "online_shopping");
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $customer_name = trim($_POST["customer_name"]);
+    $email = trim($_POST["email"]);
+    $product = trim($_POST["product"]);
+    $price = $_POST["price"];
+    $quantity = $_POST["quantity"];
+    $address = trim($_POST["address"]);
+
+    $total = $price * $quantity;
+
+    $sql = "INSERT INTO orders
+            (customer_name, email, product, price, quantity, total, address)
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bind_param(
+        "sssdiis",
+        $customer_name,
+        $email,
+        $product,
+        $price,
+        $quantity,
+        $total,
+        $address
+    );
+
+    if ($stmt->execute()) {
+
+        echo "<h2>Order placed successfully!</h2>";
+        echo "Customer Name: " . htmlspecialchars($customer_name) . "<br>";
+        echo "Product: " . htmlspecialchars($product) . "<br>";
+        echo "Total: ₹" . $total . "<br>";
+
+    } else {
+
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
+
+?>
