@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Shopping Application</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .container {
+            background-color: white;
+            width: 400px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: white;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Online Shopping Application</h1>
+
+    <form action="order.jsp" method="post">
+
+        <label>User Name:</label>
+        <input type="text" name="user_name" required>
+
+        <label>Product Name:</label>
+        <input type="text" name="product_name" required>
+
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" required>
+
+        <label>Price:</label>
+        <input type="number" name="price" step="0.01" required>
+
+        <input type="submit" value="Place Order">
+
+    </form>
+
+</div>
+
+</body>
+</html>
